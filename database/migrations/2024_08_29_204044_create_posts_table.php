@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('titulo');
             $table->string('body');
             $table->unsignedBigInteger('category');
+            $table->date('fecha');
             $table->timestamps();
 
             $table->foreign('category')->references('id')->on('categorias')->onDelete('cascade');

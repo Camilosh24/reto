@@ -11,3 +11,8 @@ Route::get('/categoria', function () {
     return view('categorias');
 });
 
+
+Route::get('/blog', function () {
+    return view('blog');
+});
+

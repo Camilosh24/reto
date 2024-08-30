@@ -12,6 +12,7 @@
                 <th>Titulo</th>
                 <th>Body</th>
                 <th>categoria</th>
+                <th>Fecha</th>
                 <th>Acciones</th>
             </tr>
         </thead>
@@ -22,6 +23,7 @@
                     <td>{{ $post->titulo }}</td>
                     <td>{{ $post->body }}</td>
                     <td>{{ $post->category }}</td>
+                    <td>{{ $post->fecha}}</td>
                     <td>
                         <button wire:click="edit({{ $post->id }})" class="btn btn-primary btn-sm"><i class="fa-solid fa-pen-to-square"></i> Editar</button>
                         <button wire:click="delete({{ $post->id }})" class="btn btn-danger btn-sm"><i class="fa-solid fa-trash"></i> Eliminar</button>
@@ -42,17 +44,17 @@
                 <div class="modal-body">
                     <form>
                         @csrf
-                        <div class="form-group">
+                        <div class="form-group mt-3">
                             <label for="Titulo">Titulo</label>
                             <input type="text" class="form-control" id="titulo" wire:model="titulo">
                             @error('nombre') <span class="text-danger">{{ $message }}</span> @enderror
                         </div>
-                        <div class="form-group">
+                        <div class="form-group mt-3">
                             <label for="body">body</label>
                             <textarea type="text" class="form-control" id="body" wire:model="body"></textarea>
                             @error('nombre') <span class="text-danger">{{ $message }}</span> @enderror
                         </div>
-                        <div class="form-group">
+                        <div class="form-group mt-3">
                             <label for="category">Categoria</label>
                             <select name="category" id="category" class="form-select" wire:model="category">
                                 <option value="">Seleccionar Categoria</option>
@@ -62,7 +64,11 @@
                             </select>
                             @error('category') <span class="text-danger">{{ $message }}</span> @enderror
                         </div>
-                        
+                        <div class="form-group mt-3">
+                            <label for="fecha">Fecha</label>
+                            <input type="date" class="form-control" id="fecha" wire:model="fecha">
+                            @error('fecha') <span class="text-danger">{{ $message }}</span> @enderror
+                        </div>
                     </form>
                 </div>
                 <div class="modal-footer">
@@ -73,3 +79,5 @@
         </div>
     </div>
 </div>
+
+

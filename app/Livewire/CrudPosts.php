@@ -8,7 +8,7 @@ use App\Models\Post;
 
 class CrudPosts extends Component
 {
-    public $categorias, $posts, $titulo, $body, $category, $post_id;
+    public $categorias, $posts, $titulo, $body, $category, $fecha,$post_id;
     public $isModalOpen = false;
     public $modalTitle = 'Crear Post';  
 
@@ -41,6 +41,7 @@ class CrudPosts extends Component
         $this->titulo = '';
         $this->body = '';
         $this->category = '';
+        $this->fecha = '';
         $this->post_id = null; 
     }
 
@@ -50,6 +51,7 @@ class CrudPosts extends Component
             'titulo' => 'required',
             'body' => 'required',
             'category' => 'required',
+            'fecha' => 'required',
         ]);
 
         Post::updateOrCreate(
@@ -57,7 +59,8 @@ class CrudPosts extends Component
             [
                 'titulo' => $this->titulo,
                 'body' => $this->body,
-                'category' => $this->category
+                'category' => $this->category,
+                'fecha' => $this->fecha
             ]
         );
 
@@ -74,6 +77,7 @@ class CrudPosts extends Component
         $this->titulo = $post->titulo;
         $this->body = $post->body;
         $this->category = $post->category;
+        $this->fecha = $post->fecha; 
 
         $this->modalTitle = 'Editar Post'; // Cambiado a 'Editar Post'
         $this->openModal();
