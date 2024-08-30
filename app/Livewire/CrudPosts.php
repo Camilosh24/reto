@@ -4,13 +4,15 @@ namespace App\Livewire;
 
 use App\Models\Categoria;
 use Livewire\Component;
+use Livewire\Attributes\On; 
 use App\Models\Post;
 
 class CrudPosts extends Component
 {
-    public $categorias, $posts, $titulo, $body, $category, $fecha,$post_id;
+    public $categorias, $posts, $titulo, $body, $category, $fecha, $post_id;
     public $isModalOpen = false;
     public $modalTitle = 'Crear Post';  
+
 
     public function render()
     {
@@ -65,6 +67,7 @@ class CrudPosts extends Component
         );
 
         session()->flash('message', $this->post_id ? 'Post actualizado exitosamente.' : 'Post creado exitosamente.');
+        
 
         $this->closeModal();
         $this->resetInputFields();
@@ -83,9 +86,19 @@ class CrudPosts extends Component
         $this->openModal();
     }
 
+    public function confirmDelete($id)
+    {
+        $this->post_id = $id;
+        $this->dispatch('post-delete', id: $this->post_id); 
+    }
+
+    #[On('delete')] 
     public function delete($id)
     {
-        Post::findOrFail($id)->delete();
+        
+        $post = post::findOrFail($id);
+        $post->delete();
+        
         session()->flash('message', 'Post eliminado exitosamente.');
     }
 }

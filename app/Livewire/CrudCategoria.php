@@ -4,6 +4,7 @@ namespace App\Livewire;
 
 use Livewire\Component;
 use App\Models\Categoria;
+use Livewire\Attributes\On; 
 
 class CrudCategoria extends Component
 {
@@ -66,9 +67,18 @@ class CrudCategoria extends Component
         $this->openModal();
     }
 
+    public function confirmDelete($id)
+    {
+        $this->categoria_id = $id;
+        $this->dispatch('category-delete', id: $this->categoria_id);
+
+    }
+
+    #[On('delete')] 
     public function delete($id)
     {
-        Categoria::find($id)->delete();
-        session()->flash('message', 'Categoría eliminada exitosamente.');
+        $categoria = Categoria::findOrFail($id);
+        $categoria->delete();
+        
     }
 }

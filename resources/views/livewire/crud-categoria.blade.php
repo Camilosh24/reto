@@ -20,7 +20,7 @@
                     <td>{{ $categoria->nombre }}</td>
                     <td>
                         <button wire:click="edit({{ $categoria->id }})" class="btn btn-primary btn-sm"><i class="fa-solid fa-pen-to-square"></i> Editar</button>
-                        <button wire:click="delete({{ $categoria->id }})" class="btn btn-danger btn-sm"><i class="fa-solid fa-trash"></i> Eliminar</button>
+                        <button wire:click="confirmDelete({{ $categoria->id }})" class="btn btn-danger btn-sm"><i class="fa-solid fa-trash"></i> Eliminar</button>
                     </td>
                 </tr>
             @endforeach
@@ -51,4 +51,36 @@
             </div>
         </div>
     </div>
+
+
+    @script
+        @push('js')
+            <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+            <script>
+                document.addEventListener('livewire:init', () => {
+                    Livewire.on('category-delete', (categoria_id) => {
+                        Swal.fire({
+                            title: "¿Deseas Eliminar La categoria?",
+                            text: "Recuerda que no quedara registro de ella",
+                            icon: "warning",
+                            showCancelButton: true,
+                            confirmButtonColor: "#3085d6",
+                            cancelButtonColor: "#d33",
+                            confirmButtonText: "Si, Eliminar",
+                            cancelButtonText: "Cancelar"
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                Livewire.dispatch('delete', categoria_id);
+                                Swal.fire({
+                                    title: "Deleted!",
+                                    text: "Your file has been deleted.",
+                                    icon: "success"
+                                });
+                            }
+                        });
+                    });
+                });
+            </script>
+        @endpush
+    @endscript
 </div>

@@ -17,16 +17,20 @@
             </tr>
         </thead>
         <tbody>
-            @foreach($posts as $post)
+            @foreach ($posts as $post)
                 <tr>
                     <td>{{ $post->id }}</td>
                     <td>{{ $post->titulo }}</td>
                     <td>{{ $post->body }}</td>
                     <td>{{ $post->category }}</td>
-                    <td>{{ $post->fecha}}</td>
+                    <td>{{ $post->fecha }}</td>
                     <td>
-                        <button wire:click="edit({{ $post->id }})" class="btn btn-primary btn-sm"><i class="fa-solid fa-pen-to-square"></i> Editar</button>
-                        <button wire:click="delete({{ $post->id }})" class="btn btn-danger btn-sm"><i class="fa-solid fa-trash"></i> Eliminar</button>
+                        <button wire:click="edit({{ $post->id }})" class="btn btn-primary"><i
+                                class="fa-solid fa-pen-to-square"></i></button>
+                        <button wire:click="confirmDelete({{ $post->id }})" class="btn btn-danger mt-1">
+                            <i class="fa-solid fa-trash"></i>
+                        </button>
+
                     </td>
                 </tr>
             @endforeach
@@ -34,7 +38,8 @@
     </table>
 
     <!-- Modal -->
-    <div class="modal fade @if($isModalOpen) show d-block @endif" tabindex="-1" role="dialog" @if($isModalOpen) style="display: block;" @else style="display: none;" @endif>
+    <div class="modal fade @if ($isModalOpen) show d-block @endif" tabindex="-1" role="dialog"
+        @if ($isModalOpen) style="display: block;" @else style="display: none;" @endif>
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header bg-dark text-white color-white">
@@ -45,14 +50,18 @@
                     <form>
                         @csrf
                         <div class="form-group mt-3">
-                            <label for="Titulo">Titulo</label>
+                            <label for="titulo">Titulo</label>
                             <input type="text" class="form-control" id="titulo" wire:model="titulo">
-                            @error('nombre') <span class="text-danger">{{ $message }}</span> @enderror
+                            @error('titulo')
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
                         </div>
                         <div class="form-group mt-3">
-                            <label for="body">body</label>
-                            <textarea type="text" class="form-control" id="body" wire:model="body"></textarea>
-                            @error('nombre') <span class="text-danger">{{ $message }}</span> @enderror
+                            <label for="body">Body</label>
+                            <textarea class="form-control" id="body" wire:model="body"></textarea>
+                            @error('body')
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
                         </div>
                         <div class="form-group mt-3">
                             <label for="category">Categoria</label>
@@ -62,12 +71,16 @@
                                     <option value="{{ $categoria->id }}">{{ $categoria->nombre }}</option>
                                 @endforeach
                             </select>
-                            @error('category') <span class="text-danger">{{ $message }}</span> @enderror
+                            @error('category')
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
                         </div>
                         <div class="form-group mt-3">
                             <label for="fecha">Fecha</label>
                             <input type="date" class="form-control" id="fecha" wire:model="fecha">
-                            @error('fecha') <span class="text-danger">{{ $message }}</span> @enderror
+                            @error('fecha')
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
                         </div>
                     </form>
                 </div>
@@ -78,6 +91,36 @@
             </div>
         </div>
     </div>
+
+
+    @script
+        @push('js')
+            <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+            <script>
+                document.addEventListener('livewire:init', () => {
+                    Livewire.on('post-delete', (postId) => {
+                        Swal.fire({
+                            title: "¿Deseas Eliminar el Posts?",
+                            text: "Recuerda que no quedara registro",
+                            icon: "warning",
+                            showCancelButton: true,
+                            confirmButtonColor: "#3085d6",
+                            cancelButtonColor: "#d33",
+                            confirmButtonText: "Si, Eliminar",
+                            cancelButtonText: "Cancelar"
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                Livewire.dispatch('delete', postId);
+                                Swal.fire({
+                                    title: "Deleted!",
+                                    text: "Your file has been deleted.",
+                                    icon: "success"
+                                });
+                            }
+                        });
+                    });
+                });
+            </script>
+        @endpush
+    @endscript
 </div>
-
-
