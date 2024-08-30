@@ -19,8 +19,8 @@
                     <td>{{ $categoria->id }}</td>
                     <td>{{ $categoria->nombre }}</td>
                     <td>
-                        <button wire:click="edit({{ $categoria->id }})" class="btn btn-primary btn-sm">Editar</button>
-                        <button wire:click="delete({{ $categoria->id }})" class="btn btn-danger btn-sm">Eliminar</button>
+                        <button wire:click="edit({{ $categoria->id }})" class="btn btn-primary btn-sm"><i class="fa-solid fa-pen-to-square"></i> Editar</button>
+                        <button wire:click="delete({{ $categoria->id }})" class="btn btn-danger btn-sm"><i class="fa-solid fa-trash"></i> Eliminar</button>
                     </td>
                 </tr>
             @endforeach

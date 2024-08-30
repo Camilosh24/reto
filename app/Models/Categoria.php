@@ -11,4 +11,10 @@ class Categoria extends Model
 
     protected $filliable = ['nombre'];
     protected $guarded = ['id'];
+
+
+    public function post()
+    {
+        return $this->belongsTo(post::class);
+    }
 }
