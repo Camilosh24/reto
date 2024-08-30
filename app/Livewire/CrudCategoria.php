@@ -9,7 +9,7 @@ class CrudCategoria extends Component
 {
     public $categorias, $nombre, $categoria_id;
     public $isModalOpen = false;
-    public $modalTitle = 'Crear Categoría'; // Variable para el título del modal
+    public $modalTitle = 'Crear Categoría';
 
     public function render()
     {
@@ -20,7 +20,7 @@ class CrudCategoria extends Component
     public function create()
     {
         $this->resetInputFields();
-        $this->modalTitle = 'Crear Categoría'; // Establece el título para crear
+        $this->modalTitle = 'Crear Categoría'; 
         $this->openModal();
     }
 
@@ -62,7 +62,7 @@ class CrudCategoria extends Component
         $this->categoria_id = $id;
         $this->nombre = $categoria->nombre;
 
-        $this->modalTitle = 'Editar Categoría'; // Establece el título para editar
+        $this->modalTitle = 'Editar Categoría';
         $this->openModal();
     }
 

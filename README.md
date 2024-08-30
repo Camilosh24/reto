@@ -66,19 +66,7 @@ If you discover a security vulnerability within Laravel, please send an e-mail t
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
 
 
-@foreach ($posts as $post)
-        <div class="card mb-3">
-            <div class="card-header bg-dark text-white">
-                {{ $post->category }}
-            </div>
-            <div class="card-body">
-                <h5 class="card-title">{{ $post->titulo }}</h5>
-                <p class="card-text">{{ $post->body }}</p>
-            </div>
-            <div class="card-footer text-body-secondary">
-                <button wire:click="edit({{ $post->id }})" class="btn btn-primary btn-sm"><i
-                        class="fa-solid fa-pen-to-squart"></i>Editar</button>
-                <button wire:click="delete({{ $post->id }})" class="btn btn-danger btn-sm">Eliminar</button>
-            </div>
-        </div>
-    @endforeach
+comandos para factory
+
+php artisan db:seed --class=CategoriaSeeder
+php artisan db:seed --class=PostSeeder

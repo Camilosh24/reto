@@ -79,7 +79,7 @@ class CrudPosts extends Component
         $this->category = $post->category;
         $this->fecha = $post->fecha; 
 
-        $this->modalTitle = 'Editar Post'; // Cambiado a 'Editar Post'
+        $this->modalTitle = 'Editar Post';
         $this->openModal();
     }
 
