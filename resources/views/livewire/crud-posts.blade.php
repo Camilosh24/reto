@@ -1,4 +1,17 @@
 <div class="container mt-5">
+
+    @if (session()->has('message'))
+        @if (session('message') == 'Post actualizado exitosamente.')
+            <div class="alert alert-success" role="alert">
+                {{ session('message') }}
+            </div>
+        @elseif (session('message') == 'Post creado exitosamente.')
+            <div class="alert alert-success" role="alert">
+                {{ session('message') }}
+            </div>
+        @endif
+    @endif
+
     <div class="row">
         <div class="col-lg-12 mb-4">
             <button wire:click="create()" class="btn btn-primary"><i class="fa-solid fa-plus"></i> Crear</button>

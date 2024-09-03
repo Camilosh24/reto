@@ -1,4 +1,17 @@
 <div class="container mt-5">
+
+    @if (session()->has('message'))
+        @if (session('message') == 'Categoría actualizada exitosamente.')
+            <div class="alert alert-success" role="alert">
+                {{ session('message') }}
+            </div>
+        @elseif (session('message') == 'Categoría creada exitosamente.')
+            <div class="alert alert-success" role="alert">
+                {{ session('message') }}
+            </div>
+        @endif
+    @endif
+
     <div class="row">
         <div class="col-lg-12 mb-4">
             <button wire:click="create()" class="btn btn-primary"><i class="fa-solid fa-plus"></i> Crear</button>
@@ -14,13 +27,15 @@
             </tr>
         </thead>
         <tbody>
-            @foreach($categorias as $categoria)
+            @foreach ($categorias as $categoria)
                 <tr>
                     <td>{{ $categoria->id }}</td>
                     <td>{{ $categoria->nombre }}</td>
                     <td>
-                        <button wire:click="edit({{ $categoria->id }})" class="btn btn-primary btn-sm"><i class="fa-solid fa-pen-to-square"></i> Editar</button>
-                        <button wire:click="confirmDelete({{ $categoria->id }})" class="btn btn-danger btn-sm"><i class="fa-solid fa-trash"></i> Eliminar</button>
+                        <button wire:click="edit({{ $categoria->id }})" class="btn btn-primary btn-sm"><i
+                                class="fa-solid fa-pen-to-square"></i> Editar</button>
+                        <button wire:click="confirmDelete({{ $categoria->id }})" class="btn btn-danger btn-sm"><i
+                                class="fa-solid fa-trash"></i> Eliminar</button>
                     </td>
                 </tr>
             @endforeach
@@ -28,7 +43,8 @@
     </table>
 
     <!-- Modal -->
-    <div class="modal fade @if($isModalOpen) show d-block @endif" tabindex="-1" role="dialog" @if($isModalOpen) style="display: block;" @else style="display: none;" @endif>
+    <div class="modal fade @if ($isModalOpen) show d-block @endif" tabindex="-1" role="dialog"
+        @if ($isModalOpen) style="display: block;" @else style="display: none;" @endif>
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header bg-dark text-white color-white">
@@ -40,7 +56,9 @@
                         <div class="form-group">
                             <label for="nombre">Nombre</label>
                             <input type="text" class="form-control" id="nombre" wire:model="nombre">
-                            @error('nombre') <span class="text-danger">{{ $message }}</span> @enderror
+                            @error('nombre')
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
                         </div>
                     </form>
                 </div>
